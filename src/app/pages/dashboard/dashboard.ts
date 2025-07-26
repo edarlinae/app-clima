@@ -3,15 +3,16 @@ import { WeatherService } from '../../services/weather';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, IonicModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
-export class DashboardComponent implements OnInit {
+export class Dashboard implements OnInit {
   
   weatherData: any;
   hourlyForecast: any[] = [];
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit {
 
   onSearch(): void {
     if (this.searchCity) {
+      // CORRECCIÓN: Se ha cambiado "search-city" por "searchCity"
       this.loadWeatherData(this.searchCity.trim());
     }
   }

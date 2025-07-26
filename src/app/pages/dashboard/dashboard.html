@@ -49,19 +49,22 @@
     </div>
 
     <div class="additional-info">
-      <h4>Información Adicional</h4>
+      <h4 class="section-title">Información Adicional</h4>
       <div class="info-grid">
         <div class="info-item">
-          <p>Humedad</p>
-          <span>{{ weatherData.main.humidity }}%</span>
+          <ion-icon name="water-outline" class="info-icon"></ion-icon>
+          <p class="info-label">Humedad</p>
+          <span class="info-value">{{ weatherData.main.humidity }}%</span>
         </div>
         <div class="info-item">
-          <p>Velocidad Viento</p>
-          <span>{{ weatherData.wind.speed }} m/s</span>
+          <ion-icon name="flag-outline" class="info-icon"></ion-icon>
+          <p class="info-label">Velocidad Viento</p>
+          <span class="info-value">{{ weatherData.wind.speed }} m/s</span>
         </div>
         <div class="info-item">
-          <p>Presión</p>
-          <span>{{ weatherData.main.pressure }} hPa</span>
+          <ion-icon name="speedometer-outline" class="info-icon"></ion-icon>
+          <p class="info-label">Presión</p>
+          <span class="info-value">{{ weatherData.main.pressure }} hPa</span>
         </div>
       </div>
     </div>
