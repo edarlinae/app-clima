@@ -1,13 +1,25 @@
-// Estilos base y de fondo
+// :host contiene ahora las variables de color de tu diseño para el modo claro
 :host {
   display: flex;
   justify-content: center;
-  align-items: flex-start; // Alinea arriba para el scroll
+  align-items: flex-start;
   min-height: 100vh;
-  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
   padding: 20px;
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  
+  --text-color-primary: #333;
+  --text-color-dark: #2c3e50;
+  --hourly-card-bg: #f0f7fb;
+  --hourly-card-shadow: rgba(0, 0, 0, 0.08);
+  --hourly-temp-color: #2196f3;
+  --scrollbar-track-color: #f0f7fb;
+  --scrollbar-thumb-color: #bbdefb;
+  --scrollbar-thumb-border-color: #f0f7fb;
+  --scrollbar-thumb-hover-color: #90caf9;
+
+  // Fondo general de la aplicación
+  background: linear-gradient(135deg, #e0f2f7, #bbdefb);
 }
 
 // Tarjeta principal que simula un móvil
@@ -97,45 +109,84 @@
   .feels-like { margin: 0; font-size: 14px; opacity: 0.8; }
 }
 
-// Secciones de pronóstico e info
-.hourly-forecast, .additional-info {
+// Contenedor general del pronóstico
+.hourly-forecast {
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+// Título de la sección
+.section-title {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    text-align: left;
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+// Contenedor scrollable
+.hourly-forecast-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 5px;
+
+    &::-webkit-scrollbar {
+        height: 8px;
+        background-color: var(--scrollbar-track-color);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb-color);
+        border-radius: 10px;
+        border: 2px solid var(--scrollbar-thumb-border-color);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--scrollbar-thumb-hover-color);
+    }
+}
+
+// Tarjeta individual para cada hora
+.hourly-card {
+    flex: 0 0 80px;
+    background-color: var(--hourly-card-bg);
+    border-radius: 15px;
+    padding: 10px 5px;
+    box-shadow: 0 4px 10px var(--hourly-card-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-color-primary);
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.hourly-icon {
+    width: 45px;
+    height: 45px;
+}
+
+.hourly-temp {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--hourly-temp-color);
+}
+
+// Información Adicional
+.additional-info {
   background-color: #f9f9f9;
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
   h4 { margin: 0 0 15px 0; font-size: 18px; font-weight: 600; }
-}
-
-.hourly-forecast .hours {
-  display: flex;
-  justify-content: flex-start;
-  overflow-x: auto;
-  padding-bottom: 15px;
-  text-align: center;
-
-  &::-webkit-scrollbar {
-    height: 8px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
-  }
-}
-
-.hourly-forecast .hours .hour-item {
-  min-width: 75px; 
-  p { margin: 5px 0; }
-  img {
-    width: 45px;
-    height: 45px;
-  }
 }
 
 .additional-info .info-grid {

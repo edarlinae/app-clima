@@ -38,15 +38,16 @@
     </div>
 
     <div class="hourly-forecast">
-      <h4>Pronóstico por Horas</h4>
-      <div class="hours">
-        <div class="hour-item" *ngFor="let hour of hourlyForecast">
+      <h4 class="section-title">Pronóstico por Horas</h4>
+      <div class="hourly-forecast-container">
+        <div class="hourly-card" *ngFor="let hour of hourlyForecast">
           <p>{{ hour.dt_txt | date:'HH:mm' }}</p>
-          <img [src]="'https://openweathermap.org/img/wn/' + hour.weather[0].icon + '@2x.png'" alt="weather icon">
-          <p>{{ hour.main.temp | number:'1.0-0' }}°C</p>
+          <img class="hourly-icon" [src]="'https://openweathermap.org/img/wn/' + hour.weather[0].icon + '@2x.png'" alt="weather icon">
+          <p class="hourly-temp">{{ hour.main.temp | number:'1.0-0' }}°C</p>
         </div>
       </div>
     </div>
+
     <div class="additional-info">
       <h4>Información Adicional</h4>
       <div class="info-grid">
@@ -65,6 +66,6 @@
       </div>
     </div>
 
-    <button class="five-day-forecast-btn">Pronóstico 5 Días</button>
+    <button class="five-day-forecast-btn" (click)="goToForecast()">Pronóstico 5 Días</button>
   </div>
 </div>

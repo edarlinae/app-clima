@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../../services/weather';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,15 +14,16 @@ import { FormsModule } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   
   weatherData: any;
-  // Propiedad para el pronóstico por horas
   hourlyForecast: any[] = [];
   searchCity: string = '';
   recentCities: string[] = [];
-  // Propiedad para el mensaje de error
   errorMessage: string | null = null;
   private readonly RECENT_CITIES_KEY = 'weatherApp_recentCities';
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private router: Router // Inyectamos el Router
+  ) {}
 
   ngOnInit(): void {
     this.loadRecentCitiesFromStorage();
@@ -36,36 +38,35 @@ export class DashboardComponent implements OnInit {
   }
 
   loadWeatherData(city: string): void {
-    // Al empezar una búsqueda, limpiamos el error anterior
     this.errorMessage = null;
-
     this.weatherService.getWeather(city).subscribe({
       next: (data) => {
         this.weatherData = data;
         this.updateRecentCities(data.name);
-        
-        // Si el tiempo actual se carga bien, pedimos el pronóstico
         this.loadForecast(data.name);
       },
       error: (err) => {
         console.error('Error al obtener los datos del tiempo:', err);
-        // Si hay un error, mostramos un mensaje
         this.errorMessage = `No se encontró la ciudad "${city}". Por favor, intenta de nuevo.`;
-        this.weatherData = null; // Limpiamos los datos viejos
-        this.hourlyForecast = []; // Limpiamos el pronóstico viejo
+        this.weatherData = null;
+        this.hourlyForecast = [];
       }
     });
+  }
+  
+  // Nuevo método para navegar a la página de pronóstico
+  goToForecast(): void {
+    if (this.weatherData) {
+      this.router.navigate(['/forecast', this.weatherData.name]);
+    }
   }
 
   private loadForecast(city: string): void {
     this.weatherService.getForecast(city).subscribe({
       next: (data) => {
-        // La API devuelve datos cada 3 horas, nos quedamos con los 5 primeros (15 horas)
         this.hourlyForecast = data.list.slice(0, 5);
       },
-      error: (err) => {
-        console.error('Error al obtener el pronóstico:', err);
-      }
+      error: (err) => console.error('Error al obtener el pronóstico:', err)
     });
   }
 
