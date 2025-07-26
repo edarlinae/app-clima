@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WeatherService } from '../../services/weather';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ThemeService } from '../../services/theme';
+import { Subscription } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -10,9 +12,10 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [CommonModule, FormsModule, IonicModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  // CAMBIO: Usamos styleUrls en plural y con corchetes []
+  styleUrls: ['./dashboard.scss']
 })
-export class Dashboard implements OnInit {
+export class Dashboard implements OnInit, OnDestroy {
   
   weatherData: any;
   hourlyForecast: any[] = [];
@@ -21,21 +24,34 @@ export class Dashboard implements OnInit {
   errorMessage: string | null = null;
   private readonly RECENT_CITIES_KEY = 'weatherApp_recentCities';
 
+  currentTheme: string = 'light';
+  private themeSubscription!: Subscription;
+
   constructor(
     private weatherService: WeatherService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
+    this.themeSubscription = this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
+    });
+
     this.loadRecentCitiesFromStorage();
     const initialCity = this.recentCities[0] || 'Burriana';
     this.loadWeatherData(initialCity);
   }
 
+  ngOnDestroy(): void {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
+  }
+
   onSearch(): void {
     if (this.searchCity) {
       this.loadWeatherData(this.searchCity.trim());
-      // CAMBIO: Vaciamos la variable después de la búsqueda
       this.searchCity = ''; 
     }
   }
@@ -59,6 +75,16 @@ export class Dashboard implements OnInit {
   goToForecast(): void {
     if (this.weatherData) {
       this.router.navigate(['/forecast', this.weatherData.name]);
+    }
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  refreshData(): void {
+    if (this.weatherData) {
+      this.loadWeatherData(this.weatherData.name);
     }
   }
 

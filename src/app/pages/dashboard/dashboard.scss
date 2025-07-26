@@ -1,40 +1,16 @@
-// :host contiene ahora las variables de color de tu diseño para el modo claro
-:host {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  
-  --text-color-primary: #333;
-  --text-color-dark: #2c3e50;
-  --hourly-card-bg: #f0f7fb;
-  --hourly-card-shadow: rgba(0, 0, 0, 0.08);
-  --hourly-temp-color: #2196f3;
-  --scrollbar-track-color: #f0f7fb;
-  --scrollbar-thumb-color: #bbdefb;
-  --scrollbar-thumb-border-color: #f0f7fb;
-  --scrollbar-thumb-hover-color: #90caf9;
-  --header-icon-color: #64b5f6;
-
-  // Fondo general de la aplicación
-  background: linear-gradient(135deg, #e0f2f7, #bbdefb);
-}
-
 // Tarjeta principal que simula un móvil
 .weather-card {
-  background-color: white;
+  background-color: var(--card-bg-color);
   border-radius: 30px;
   padding: 25px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-  color: #333;
+  box-shadow: 0 15px 40px var(--card-shadow);
+  color: var(--text-color-primary);
   display: flex;
   flex-direction: column;
   gap: 20px; // Espacio general entre secciones
+  transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
 // Cabecera
@@ -46,6 +22,25 @@
     margin: 0;
     font-size: 22px;
     font-weight: 600;
+    color: var(--text-color-dark);
+    transition: color 0.3s;
+  }
+}
+
+.card-header .header-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  
+  ion-icon {
+    font-size: 24px;
+    color: var(--header-icon-color);
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: var(--header-icon-hover-color);
+    }
   }
 }
 
@@ -187,7 +182,7 @@
   color: var(--hourly-temp-color);
 }
 
-// Información Adicional (Estilos actualizados)
+// Información Adicional
 .additional-info {
   .info-grid {
     display: flex;
@@ -225,7 +220,7 @@
   text-align: center;
 }
 
-// Botón final (Estilos actualizados)
+// Botón final
 .five-day-forecast-btn {
   width: 100%;
   padding: 15px;
@@ -246,7 +241,7 @@
   }
 }
 
-// Mensaje de error (permanece igual)
+// Mensaje de error
 .error-message {
   background-color: #ffebee;
   color: #c62828;

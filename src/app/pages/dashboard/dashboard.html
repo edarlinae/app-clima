@@ -2,6 +2,13 @@
   <div class="weather-card">
     <header class="card-header">
       <h2>Weather App</h2>
+      <div class="header-icons">
+        <ion-icon name="refresh-outline" (click)="refreshData()"></ion-icon>
+        <div (click)="toggleTheme()">
+          <ion-icon *ngIf="currentTheme === 'light'" name="moon-outline"></ion-icon>
+          <ion-icon *ngIf="currentTheme === 'dark'" name="sunny-outline"></ion-icon>
+        </div>
+      </div>
     </header>
 
     <div class="search-bar">

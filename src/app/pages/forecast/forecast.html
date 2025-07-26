@@ -2,17 +2,20 @@
   <div class="forecast-card">
     <header class="card-header">
       <button class="back-button" (click)="goBack()">←</button>
-      <h2 class="app-title">Weather App</h2>
-      <div class="header-icons"></div>
+      <div class="header-icons">
+        <ion-icon name="refresh-outline" (click)="refreshData()"></ion-icon>
+        <div (click)="toggleTheme()">
+          <ion-icon *ngIf="currentTheme === 'light'" name="moon-outline"></ion-icon>
+          <ion-icon *ngIf="currentTheme === 'dark'" name="sunny-outline"></ion-icon>
+        </div>
+      </div>
     </header>
 
     <h3 class="forecast-location" *ngIf="cityName">{{ cityName }}</h3>
 
     <div class="forecast-list">
       <div class="day-group" *ngFor="let dayGroup of groupedForecastData">
-        
         <h4 class="section-title">{{ dayGroup.dateLabel }}</h4>
-        
         <div class="hourly-forecast-container">
           <div class="hourly-card" *ngFor="let hour of dayGroup.forecasts">
             <p>{{ hour.dt_txt | date:'HH:mm' }}</p>
@@ -20,7 +23,6 @@
             <p class="hourly-temp">{{ hour.main.temp | number:'1.0-0' }}°C</p>
           </div>
         </div>
-
       </div>
     </div>
   </div>
