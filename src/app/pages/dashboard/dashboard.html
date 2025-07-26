@@ -7,13 +7,20 @@
     </header>
 
     <div class="search-bar">
-      <input type="text" placeholder="Buscar ubicación...">
-      </div>
+      <input 
+       type="text" 
+       placeholder="Buscar ubicación..."
+       [(ngModel)]="searchCity"
+       (keyup.enter)="onSearch()">
+    </div>
 
     <div class="recent-searches">
-      <button class="active">Burriana</button>
-      <button>Puentes de García Rodríguez</button>
-      <button>Lugo</button>
+      <button 
+        *ngFor="let city of recentCities"
+        (click)="loadWeatherData(city)"
+        [class.active]="city === weatherData?.name">
+       {{ city }}
+     </button>
     </div>
 
     <div class="main-weather">

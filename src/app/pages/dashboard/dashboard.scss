@@ -2,7 +2,7 @@
 :host {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start; // Alinea arriba para el scroll
   min-height: 100vh;
   background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
   padding: 20px;
@@ -32,7 +32,6 @@
     font-size: 22px;
     font-weight: 600;
   }
-  // Se eliminan los estilos para .header-icons ion-icon
 }
 
 // Barra de búsqueda
@@ -41,7 +40,6 @@
   margin-bottom: 15px;
   input {
     width: 100%;
-    // Se ajusta el padding al no tener icono
     padding: 12px 15px;
     border: 1px solid #e0e0e0;
     border-radius: 25px;
@@ -49,27 +47,34 @@
     background-color: #f9f9f9;
     box-sizing: border-box;
   }
-  // Se eliminan los estilos para ion-icon
 }
 
 // Búsquedas recientes
 .recent-searches {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  button {
-    background: #f0f0f0;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #555;
-    transition: all 0.3s;
-    &.active, &:hover {
-      background: #03a9f4;
-      color: white;
-    }
+  justify-content: center; /* Para centrar los botones */
+  flex-wrap: wrap;         /* Para que bajen a la siguiente línea si no caben */
+  gap: 10px;               /* Espacio entre botones */
+  margin-bottom: 20px;     /* Espacio con el contenedor de abajo */
+}
+
+.recent-searches button {
+  background: #e3f2fd; // Un azul pastel muy claro
+  border: 1px solid #bbdefb; // Un borde ligeramente más oscuro
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #0d47a1; // Texto azul oscuro para buen contraste
+  transition: all 0.3s ease;
+
+  // El estilo para el botón activo o al pasar el ratón por encima
+  &.active, &:hover {
+    background: #42a5f5; // Un azul más vivo pero agradable
+    color: white;
+    border-color: #42a5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(66, 165, 245, 0.4);
   }
 }
 
