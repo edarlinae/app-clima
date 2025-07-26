@@ -1,0 +1,139 @@
+// Estilos base y de fondo
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+// Tarjeta principal que simula un móvil
+.weather-card {
+  background-color: white;
+  border-radius: 30px;
+  padding: 25px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  color: #333;
+}
+
+// Cabecera
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  // Se eliminan los estilos para .header-icons ion-icon
+}
+
+// Barra de búsqueda
+.search-bar {
+  position: relative;
+  margin-bottom: 15px;
+  input {
+    width: 100%;
+    // Se ajusta el padding al no tener icono
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+  }
+  // Se eliminan los estilos para ion-icon
+}
+
+// Búsquedas recientes
+.recent-searches {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  button {
+    background: #f0f0f0;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    transition: all 0.3s;
+    &.active, &:hover {
+      background: #03a9f4;
+      color: white;
+    }
+  }
+}
+
+// Tarjeta del tiempo actual
+.main-weather {
+  background: linear-gradient(135deg, #81d4fa 0%, #03a9f4 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  h3 { margin: 0 0 10px 0; font-size: 24px; font-weight: 500; }
+  .temperature {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    span { font-size: 40px; vertical-align: top; }
+  }
+  img { width: 100px; margin: 10px 0; }
+  .weather-description { margin: 0 0 5px 0; font-size: 18px; }
+  .feels-like { margin: 0; font-size: 14px; opacity: 0.8; }
+}
+
+// Secciones de pronóstico e info
+.hourly-forecast, .additional-info {
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  h4 { margin: 0 0 15px 0; font-size: 18px; font-weight: 600; }
+}
+
+.hourly-forecast .hours {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  .hour-item {
+    p { margin: 5px 0; }
+  }
+}
+
+.additional-info .info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  .info-item {
+    p { margin: 5px 0; font-size: 12px; color: #777; }
+    span { font-weight: 600; }
+  }
+}
+
+// Botón final
+.five-day-forecast-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 20px;
+  background: #424242;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    background: #616161;
+  }
+}
