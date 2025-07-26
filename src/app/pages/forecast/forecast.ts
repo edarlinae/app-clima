@@ -3,10 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WeatherService } from '../../services/weather';
 import { CommonModule } from '@angular/common';
 
-// Definimos una interfaz para la estructura de nuestros datos agrupados
 interface DailyForecastGroup {
-  dateLabel: string; // "Hoy", "Mañana", "Lunes, 28 de julio"
-  forecasts: any[]; // Array de pronósticos por hora para ese día
+  dateLabel: string;
+  forecasts: any[];
 }
 
 @Component({
@@ -18,7 +17,6 @@ interface DailyForecastGroup {
 })
 export class Forecast implements OnInit {
   cityName: string | null = null;
-  // La data ahora será un array de nuestros grupos diarios
   groupedForecastData: DailyForecastGroup[] = [];
 
   constructor(
@@ -39,18 +37,29 @@ export class Forecast implements OnInit {
   loadForecast(city: string): void {
     this.weatherService.getForecast(city).subscribe({
       next: (data) => {
-        // Usamos la nueva función para agrupar los datos
         this.groupedForecastData = this.groupForecastByDay(data.list);
-      },
-      error: (err) => console.error('Error al obtener el pronóstico extendido:', err)
+      }
     });
   }
 
-  // Nueva función para agrupar los 40 pronósticos en grupos por día
+  getCustomIconPath(iconCode: string): string {
+    const iconMap: { [key: string]: string } = {
+      '01d': 'dclear_sky.png', '01n': 'nclear_sky.png',
+      '02d': 'dfew_clouds.png', '02n': 'nfew_clouds.png',
+      '03d': 'dscattered_clouds_icon.png', '03n': 'dscattered_clouds_icon.png',
+      '04d': 'dbroken_clouds.png', '04n': 'dbroken_clouds.png',
+      '09d': 'drain.png', '09n': 'nrain.png',
+      '10d': 'dshower_rain.png', '10n': 'dshower_rain.png',
+      '11d': 'dthunderstorm.png', '11n': 'dthunderstorm.png',
+      '13d': 'dsnow.png', '13n': 'dsnow.png',
+      '50d': 'dmist.png', '50n': 'dmist.png'
+    };
+    const iconFileName = iconMap[iconCode] || 'dclear_sky.png';
+    return `assets/Iconos_clima/${iconFileName}`;
+  }
+
   private groupForecastByDay(list: any[]): DailyForecastGroup[] {
     const groups: { [key: string]: any[] } = {};
-
-    // 1. Agrupamos todos los pronósticos por fecha en un objeto
     for (const item of list) {
       const date = new Date(item.dt_txt).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
       if (!groups[date]) {
@@ -59,7 +68,6 @@ export class Forecast implements OnInit {
       groups[date].push(item);
     }
 
-    // 2. Convertimos el objeto en un array con el formato que necesitamos
     const result: DailyForecastGroup[] = [];
     const today = new Date();
     const tomorrow = new Date();
@@ -84,7 +92,6 @@ export class Forecast implements OnInit {
         forecasts: groups[dateKey]
       });
 
-      // CAMBIO: Detenemos el bucle cuando tengamos 5 días
       if (result.length === 5) break;
     }
     

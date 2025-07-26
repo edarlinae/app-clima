@@ -16,7 +16,7 @@
         <div class="hourly-forecast-container">
           <div class="hourly-card" *ngFor="let hour of dayGroup.forecasts">
             <p>{{ hour.dt_txt | date:'HH:mm' }}</p>
-            <img class="hourly-icon" [src]="'https://openweathermap.org/img/wn/' + hour.weather[0].icon + '@2x.png'" alt="weather icon">
+            <img class="hourly-icon" [src]="getCustomIconPath(hour.weather[0].icon)" alt="weather icon">
             <p class="hourly-temp">{{ hour.main.temp | number:'1.0-0' }}°C</p>
           </div>
         </div>

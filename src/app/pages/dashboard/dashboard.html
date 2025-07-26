@@ -31,7 +31,7 @@
         {{ weatherData.main.temp | number:'1.0-0' }}<span>°C</span>
       </div>
       
-      <img [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'" alt="Icono del tiempo">
+      <img [src]="getCustomIconPath(weatherData.weather[0].icon)" alt="Icono del tiempo">
 
       <p class="weather-description">{{ weatherData.weather[0].description | titlecase }}</p>
       <p class="feels-like">Sensación térmica: {{ weatherData.main.feels_like | number:'1.0-0' }}°C</p>
@@ -42,7 +42,7 @@
       <div class="hourly-forecast-container">
         <div class="hourly-card" *ngFor="let hour of hourlyForecast">
           <p>{{ hour.dt_txt | date:'HH:mm' }}</p>
-          <img class="hourly-icon" [src]="'https://openweathermap.org/img/wn/' + hour.weather[0].icon + '@2x.png'" alt="weather icon">
+          <img class="hourly-icon" [src]="getCustomIconPath(hour.weather[0].icon)" alt="weather icon">
           <p class="hourly-temp">{{ hour.main.temp | number:'1.0-0' }}°C</p>
         </div>
       </div>

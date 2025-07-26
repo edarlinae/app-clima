@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private weatherService: WeatherService,
-    private router: Router // Inyectamos el Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +46,6 @@ export class DashboardComponent implements OnInit {
         this.loadForecast(data.name);
       },
       error: (err) => {
-        console.error('Error al obtener los datos del tiempo:', err);
         this.errorMessage = `No se encontró la ciudad "${city}". Por favor, intenta de nuevo.`;
         this.weatherData = null;
         this.hourlyForecast = [];
@@ -54,19 +53,33 @@ export class DashboardComponent implements OnInit {
     });
   }
   
-  // Nuevo método para navegar a la página de pronóstico
   goToForecast(): void {
     if (this.weatherData) {
       this.router.navigate(['/forecast', this.weatherData.name]);
     }
   }
 
+  getCustomIconPath(iconCode: string): string {
+    const iconMap: { [key: string]: string } = {
+      '01d': 'dclear_sky.png', '01n': 'nclear_sky.png',
+      '02d': 'dfew_clouds.png', '02n': 'nfew_clouds.png',
+      '03d': 'dscattered_clouds_icon.png', '03n': 'dscattered_clouds_icon.png',
+      '04d': 'dbroken_clouds.png', '04n': 'dbroken_clouds.png',
+      '09d': 'drain.png', '09n': 'nrain.png',
+      '10d': 'dshower_rain.png', '10n': 'dshower_rain.png',
+      '11d': 'dthunderstorm.png', '11n': 'dthunderstorm.png',
+      '13d': 'dsnow.png', '13n': 'dsnow.png',
+      '50d': 'dmist.png', '50n': 'dmist.png'
+    };
+    const iconFileName = iconMap[iconCode] || 'dclear_sky.png';
+    return `assets/Iconos_clima/${iconFileName}`;
+  }
+
   private loadForecast(city: string): void {
     this.weatherService.getForecast(city).subscribe({
       next: (data) => {
         this.hourlyForecast = data.list.slice(0, 5);
-      },
-      error: (err) => console.error('Error al obtener el pronóstico:', err)
+      }
     });
   }
 
