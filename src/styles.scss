@@ -13,6 +13,9 @@
   --hourly-card-bg: #f0f7fb;
   --hourly-card-shadow: rgba(0, 0, 0, 0.08);
   --hourly-temp-color: #2196f3;
+  --main-weather-gradient-start: #81d4fa;
+  --main-weather-gradient-end: #03a9f4;
+  --main-weather-text-color: white;
 }
 
 body.dark-mode {
@@ -29,6 +32,9 @@ body.dark-mode {
   --hourly-card-bg: #3d5a73;
   --hourly-card-shadow: rgba(0, 0, 0, 0.2);
   --hourly-temp-color: #90caf9;
+  --main-weather-gradient-start: #3d5a73;
+  --main-weather-gradient-end: #4a6c84;
+  --main-weather-text-color: var(--text-color-primary);
 }
 
 /* Estilos base para el body */
@@ -38,8 +44,6 @@ body {
   padding: 0;
   transition: background 0.3s ease;
   background: linear-gradient(135deg, var(--body-bg-gradient-start), var(--body-bg-gradient-end));
-
-  /* --- LÍNEAS AÑADIDAS PARA CENTRAR --- */
   display: flex;
   justify-content: center;
   align-items: flex-start;

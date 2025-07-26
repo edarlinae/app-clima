@@ -9,7 +9,7 @@
   color: var(--text-color-primary);
   display: flex;
   flex-direction: column;
-  gap: 20px; // Espacio general entre secciones
+  gap: 20px;
   transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
@@ -88,11 +88,13 @@
 
 // Tarjeta del tiempo actual
 .main-weather {
-  background: linear-gradient(135deg, #81d4fa 0%, #03a9f4 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--main-weather-gradient-start), var(--main-weather-gradient-end));
+  color: var(--main-weather-text-color);
   border-radius: 20px;
   padding: 20px;
   text-align: center;
+  transition: background 0.3s, color 0.3s;
+
   h3 {
     margin: 0 0 10px 0;
     font-size: 24px;
