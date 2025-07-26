@@ -1,6 +1,7 @@
 :host {
-  // El :host ahora solo necesita asegurarse de que el componente se muestra
-  display: block; 
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .forecast-card {
