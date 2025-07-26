@@ -2,10 +2,21 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  
+  // --- ESTILOS AÑADIDOS PARA EL FONDO FIJO ---
+  min-height: 100vh; // Asegura que cubra toda la altura
+  background-image: url('/assets/back_login.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; // Fija la imagen para que no se mueva con el scroll
 }
 
 .forecast-card {
-  background-color: var(--card-bg-color);
+  // Le añadimos un fondo semitransparente para que sea legible sobre la imagen
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
   border-radius: 30px;
   padding: 20px;
   width: 100%;
