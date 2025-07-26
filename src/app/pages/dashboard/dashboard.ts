@@ -3,16 +3,15 @@ import { WeatherService } from '../../services/weather';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { ThemeService } from '../../services/theme';
 import { Subscription } from 'rxjs';
-import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, FormsModule, IonicModule],
   templateUrl: './dashboard.html',
-  // CAMBIO: Usamos styleUrls en plural y con corchetes []
   styleUrls: ['./dashboard.scss']
 })
 export class Dashboard implements OnInit, OnDestroy {
@@ -76,6 +75,10 @@ export class Dashboard implements OnInit, OnDestroy {
     if (this.weatherData) {
       this.router.navigate(['/forecast', this.weatherData.name]);
     }
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/']);
   }
 
   toggleTheme(): void {

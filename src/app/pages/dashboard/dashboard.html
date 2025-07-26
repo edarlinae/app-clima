@@ -1,6 +1,7 @@
 <div class="dashboard-container" *ngIf="weatherData">
   <div class="weather-card">
     <header class="card-header">
+      <ion-icon class="back-button" name="arrow-back-outline" (click)="goToLogin()"></ion-icon>
       <h2>Weather App</h2>
       <div class="header-icons">
         <ion-icon name="refresh-outline" (click)="refreshData()"></ion-icon>
