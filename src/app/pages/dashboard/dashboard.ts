@@ -34,8 +34,9 @@ export class Dashboard implements OnInit {
 
   onSearch(): void {
     if (this.searchCity) {
-      // CORRECCIÓN: Se ha cambiado "search-city" por "searchCity"
       this.loadWeatherData(this.searchCity.trim());
+      // CAMBIO: Vaciamos la variable después de la búsqueda
+      this.searchCity = ''; 
     }
   }
 
