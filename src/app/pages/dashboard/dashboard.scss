@@ -52,25 +52,24 @@
 // Búsquedas recientes
 .recent-searches {
   display: flex;
-  justify-content: center; /* Para centrar los botones */
-  flex-wrap: wrap;         /* Para que bajen a la siguiente línea si no caben */
-  gap: 10px;               /* Espacio entre botones */
-  margin-bottom: 20px;     /* Espacio con el contenedor de abajo */
+  justify-content: center; 
+  flex-wrap: wrap;       
+  gap: 10px;             
+  margin-bottom: 20px;   
 }
 
 .recent-searches button {
-  background: #e3f2fd; // Un azul pastel muy claro
-  border: 1px solid #bbdefb; // Un borde ligeramente más oscuro
+  background: #e3f2fd; 
+  border: 1px solid #bbdefb; 
   padding: 8px 15px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 14px;
-  color: #0d47a1; // Texto azul oscuro para buen contraste
+  color: #0d47a1; 
   transition: all 0.3s ease;
 
-  // El estilo para el botón activo o al pasar el ratón por encima
   &.active, &:hover {
-    background: #42a5f5; // Un azul más vivo pero agradable
+    background: #42a5f5; 
     color: white;
     border-color: #42a5f5;
     transform: translateY(-2px);
@@ -109,10 +108,33 @@
 
 .hourly-forecast .hours {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding-bottom: 15px;
   text-align: center;
-  .hour-item {
-    p { margin: 5px 0; }
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+}
+
+.hourly-forecast .hours .hour-item {
+  min-width: 75px; 
+  p { margin: 5px 0; }
+  img {
+    width: 45px;
+    height: 45px;
   }
 }
 
@@ -141,4 +163,16 @@
   &:hover {
     background: #616161;
   }
+}
+
+// Estilo para el mensaje de error
+.error-message {
+  background-color: #ffebee; 
+  color: #c62828; 
+  border: 1px solid #ef9a9a;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 14px;
 }
