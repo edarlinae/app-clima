@@ -1,22 +1,27 @@
 <div class="forecast-container">
   <div class="forecast-card">
     <header class="card-header">
-      <button class="back-button" (click)="goBack()">← Volver</button>
-      <h2 *ngIf="cityName">Pronóstico para {{ cityName }}</h2>
+      <button class="back-button" (click)="goBack()">←</button>
+      <h2 class="app-title">Weather App</h2>
+      <div class="header-icons"></div>
     </header>
 
+    <h3 class="forecast-location" *ngIf="cityName">{{ cityName }}</h3>
+
     <div class="forecast-list">
-      <div class="day-card" *ngFor="let day of forecastData">
-        <div class="day-info">
-          <p class="date">{{ day.dt_txt | date:'EEEE, d MMMM' }}</p>
-          <p class="description">{{ day.weather[0].description | titlecase }}</p>
+      <div class="day-group" *ngFor="let dayGroup of groupedForecastData">
+        
+        <h4 class="section-title">{{ dayGroup.dateLabel }}</h4>
+        
+        <div class="hourly-forecast-container">
+          <div class="hourly-card" *ngFor="let hour of dayGroup.forecasts">
+            <p>{{ hour.dt_txt | date:'HH:mm' }}</p>
+            <img class="hourly-icon" [src]="'https://openweathermap.org/img/wn/' + hour.weather[0].icon + '@2x.png'" alt="weather icon">
+            <p class="hourly-temp">{{ hour.main.temp | number:'1.0-0' }}°C</p>
+          </div>
         </div>
-        <div class="day-weather">
-          <img [src]="'https://openweathermap.org/img/wn/' + day.weather[0].icon + '@2x.png'">
-          <p class="temp">{{ day.main.temp | number:'1.0-0' }}°C</p>
-        </div>
+
       </div>
     </div>
-
   </div>
 </div>
