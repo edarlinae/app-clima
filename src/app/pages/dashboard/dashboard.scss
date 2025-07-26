@@ -2,11 +2,18 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  
+  // Estilos para el fondo dinámico que aplicamos con @HostBinding
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out; // Transición suave
 }
 
 // Tarjeta principal que simula un móvil
 .weather-card {
-  background-color: var(--card-bg-color);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 30px;
   padding: 25px;
   width: 100%;
@@ -250,7 +257,7 @@
   font-size: 1.1em;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
   transition: all 0.3s ease;
 
   &:hover {

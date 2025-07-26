@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { WeatherService } from '../../services/weather';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,13 +16,18 @@ import { Subscription } from 'rxjs';
 })
 export class Dashboard implements OnInit, OnDestroy {
   
+  @HostBinding('style.backgroundImage')
+  get backgroundImage(): string {
+    return this.currentBackground;
+  }
+  private currentBackground: string = '';
+
   weatherData: any;
   hourlyForecast: any[] = [];
   searchCity: string = '';
   recentCities: string[] = [];
   errorMessage: string | null = null;
   private readonly RECENT_CITIES_KEY = 'weatherApp_recentCities';
-
   currentTheme: string = 'light';
   private themeSubscription!: Subscription;
 
@@ -62,11 +67,14 @@ export class Dashboard implements OnInit, OnDestroy {
         this.weatherData = data;
         this.updateRecentCities(data.name);
         this.loadForecast(data.name);
+        const iconCode = this.weatherData.weather[0].icon;
+        this.currentBackground = this.getBackgroundPath(iconCode);
       },
       error: (err) => {
         this.errorMessage = `No se encontró la ciudad "${city}". Por favor, intenta de nuevo.`;
         this.weatherData = null;
         this.hourlyForecast = [];
+        this.currentBackground = '';
       }
     });
   }
@@ -107,11 +115,38 @@ export class Dashboard implements OnInit, OnDestroy {
     return `assets/Iconos_clima/${iconFileName}`;
   }
 
+  private getBackgroundPath(iconCode: string): string {
+    // CORRECCIÓN: Nombres de archivo ajustados para coincidir con tu carpeta de assets
+    const backgroundMap: { [key: string]: string } = {
+      '01d': 'clear_sky_day.png', // Corregido de .jpg a .png
+      '01n': 'clear_sky_n.png',
+      '02d': 'few_clouds_day.png',
+      '02n': 'few_clouds_n.png',
+      '03d': 'scattered_clouds_day.png',
+      '03n': 'scattered_clouds_n.png',
+      '04d': 'broken_clouds_day.png',
+      '04n': 'broken_clouds_day.png',
+      '09d': 'shower_rain_day.png',
+      '09n': 'shower_rain_day.png',
+      '10d': 'rain_day.png',
+      '10n': 'rain_day.png',
+      '11d': 'thunderstorm_day.png',
+      '11n': 'thunderstorm_day.png',
+      '13d': 'snow_day.png',
+      '13n': 'snow_n.png',
+      '50d': 'mist_day.png',
+      '50n': 'mist_day.png'
+    };
+    const backgroundFile = backgroundMap[iconCode] || 'clear_sky_day.jpg';
+    return `url(assets/backgrounds/${backgroundFile})`;
+  }
+
   private loadForecast(city: string): void {
     this.weatherService.getForecast(city).subscribe({
       next: (data) => {
         this.hourlyForecast = data.list.slice(0, 5);
-      }
+      },
+      error: (err) => console.error('Error al obtener el pronóstico por horas:', err)
     });
   }
 
