@@ -6,22 +6,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WeatherService {
-  // Guardamos la API key y la URL base en variables privadas
   private apiKey = '39f6c94ee91287c021c88c8620a56aab';
-  private apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  // URL para el tiempo actual
+  private apiUrl_current = 'https://api.openweathermap.org/data/2.5/weather';
+  // URL para el pronóstico
+  private apiUrl_forecast = 'https://api.openweathermap.org/data/2.5/forecast';
 
-  // Inyectamos HttpClient para poder hacer las llamadas
   constructor(private http: HttpClient) { }
 
-  /**
-   * Obtiene el tiempo para una ciudad específica.
-   * @param city El nombre de la ciudad.
-   * @returns Un Observable con la respuesta de la API.
-   */
   getWeather(city: string): Observable<any> {
-    // Construimos la URL completa con los parámetros necesarios
-    const url = `${this.apiUrl}?q=${city}&appid=${this.apiKey}&units=metric&lang=es`;
-    // Hacemos la petición GET y devolvemos el resultado
+    const url = `${this.apiUrl_current}?q=${city}&appid=${this.apiKey}&units=metric&lang=es`;
+    return this.http.get(url);
+  }
+
+  // NUEVO MÉTODO para el pronóstico
+  getForecast(city: string): Observable<any> {
+    const url = `${this.apiUrl_forecast}?q=${city}&appid=${this.apiKey}&units=metric&lang=es`;
     return this.http.get(url);
   }
 }

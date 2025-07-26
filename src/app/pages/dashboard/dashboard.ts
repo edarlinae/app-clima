@@ -13,18 +13,18 @@ import { FormsModule } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   
   weatherData: any;
+  // Propiedad para el pronóstico por horas
+  hourlyForecast: any[] = [];
   searchCity: string = '';
-  // 1. Propiedad para guardar la lista de ciudades recientes
   recentCities: string[] = [];
+  // Propiedad para el mensaje de error
+  errorMessage: string | null = null;
   private readonly RECENT_CITIES_KEY = 'weatherApp_recentCities';
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {
-    // 2. Al iniciar, cargamos las ciudades guardadas en el navegador
     this.loadRecentCitiesFromStorage();
-    
-    // Cargamos el tiempo para la ciudad más reciente o una por defecto
     const initialCity = this.recentCities[0] || 'Burriana';
     this.loadWeatherData(initialCity);
   }
@@ -36,41 +36,49 @@ export class DashboardComponent implements OnInit {
   }
 
   loadWeatherData(city: string): void {
+    // Al empezar una búsqueda, limpiamos el error anterior
+    this.errorMessage = null;
+
     this.weatherService.getWeather(city).subscribe({
       next: (data) => {
         this.weatherData = data;
-        // 3. Si la búsqueda es exitosa, actualizamos la lista de recientes
         this.updateRecentCities(data.name);
-        console.log('Datos del tiempo actualizados:', this.weatherData);
+        
+        // Si el tiempo actual se carga bien, pedimos el pronóstico
+        this.loadForecast(data.name);
       },
       error: (err) => {
         console.error('Error al obtener los datos del tiempo:', err);
-        // Opcional: mostrar un error al usuario si la ciudad no existe
+        // Si hay un error, mostramos un mensaje
+        this.errorMessage = `No se encontró la ciudad "${city}". Por favor, intenta de nuevo.`;
+        this.weatherData = null; // Limpiamos los datos viejos
+        this.hourlyForecast = []; // Limpiamos el pronóstico viejo
       }
     });
   }
 
-  // 4. Nueva función para gestionar la lista de ciudades recientes
+  private loadForecast(city: string): void {
+    this.weatherService.getForecast(city).subscribe({
+      next: (data) => {
+        // La API devuelve datos cada 3 horas, nos quedamos con los 5 primeros (15 horas)
+        this.hourlyForecast = data.list.slice(0, 5);
+      },
+      error: (err) => {
+        console.error('Error al obtener el pronóstico:', err);
+      }
+    });
+  }
+
   private updateRecentCities(city: string): void {
-    // Convertimos la ciudad a un formato consistente (Title Case)
     const formattedCity = city.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
-    
-    // Eliminamos la ciudad si ya existe para volver a ponerla al principio
     this.recentCities = this.recentCities.filter(c => c !== formattedCity);
-
-    // Añadimos la nueva ciudad al principio de la lista
     this.recentCities.unshift(formattedCity);
-
-    // Nos aseguramos de que solo haya 3 ciudades en la lista
     if (this.recentCities.length > 3) {
-      this.recentCities.pop(); // Elimina la última (la más antigua)
+      this.recentCities.pop();
     }
-
-    // Guardamos la lista actualizada en el almacenamiento del navegador
     localStorage.setItem(this.RECENT_CITIES_KEY, JSON.stringify(this.recentCities));
   }
   
-  // 5. Nueva función para cargar las ciudades desde el almacenamiento
   private loadRecentCitiesFromStorage(): void {
     const storedCities = localStorage.getItem(this.RECENT_CITIES_KEY);
     if (storedCities) {

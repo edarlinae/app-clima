@@ -2,16 +2,18 @@
   <div class="weather-card">
     <header class="card-header">
       <h2>Weather App</h2>
-      <div class="header-icons">
-        </div>
     </header>
 
     <div class="search-bar">
       <input 
-       type="text" 
-       placeholder="Buscar ubicación..."
-       [(ngModel)]="searchCity"
-       (keyup.enter)="onSearch()">
+        type="text" 
+        placeholder="Buscar ubicación..."
+        [(ngModel)]="searchCity"
+        (keyup.enter)="onSearch()">
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
     </div>
 
     <div class="recent-searches">
@@ -19,8 +21,8 @@
         *ngFor="let city of recentCities"
         (click)="loadWeatherData(city)"
         [class.active]="city === weatherData?.name">
-       {{ city }}
-     </button>
+        {{ city }}
+      </button>
     </div>
 
     <div class="main-weather">
@@ -38,12 +40,13 @@
     <div class="hourly-forecast">
       <h4>Pronóstico por Horas</h4>
       <div class="hours">
-        <div class="hour-item"><p>14:00</p><p>29°C</p></div>
-        <div class="hour-item"><p>17:00</p><p>30°C</p></div>
-        <div class="hour-item"><p>23:00</p><p>26°C</p></div>
+        <div class="hour-item" *ngFor="let hour of hourlyForecast">
+          <p>{{ hour.dt_txt | date:'HH:mm' }}</p>
+          <img [src]="'https://openweathermap.org/img/wn/' + hour.weather[0].icon + '@2x.png'" alt="weather icon">
+          <p>{{ hour.main.temp | number:'1.0-0' }}°C</p>
+        </div>
       </div>
     </div>
-
     <div class="additional-info">
       <h4>Información Adicional</h4>
       <div class="info-grid">
