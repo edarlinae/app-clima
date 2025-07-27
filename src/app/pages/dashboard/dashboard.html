@@ -46,7 +46,7 @@
     </div>
 
     <div class="hourly-forecast">
-      <h4 class="section-title">Pronóstico por Horas</h4>
+      <h4 class="section-title">{{ texts.hourlyForecastTitle }}</h4>
       <div class="hourly-forecast-container">
         <div class="hourly-card" *ngFor="let hour of hourlyForecast">
           <p>{{ hour.dt_txt | date:'HH:mm' }}</p>
@@ -57,26 +57,26 @@
     </div>
 
     <div class="additional-info">
-      <h4 class="section-title">Información Adicional</h4>
+      <h4 class="section-title">{{ texts.additionalInfoTitle }}</h4>
       <div class="info-grid">
         <div class="info-item">
           <ion-icon name="water-outline" class="info-icon"></ion-icon>
-          <p class="info-label">Humedad</p>
+          <p class="info-label">{{ texts.humidity }}</p>
           <span class="info-value">{{ weatherData.main.humidity }}%</span>
         </div>
         <div class="info-item">
           <ion-icon name="flag-outline" class="info-icon"></ion-icon>
-          <p class="info-label">Velocidad Viento</p>
+          <p class="info-label">{{ texts.windSpeed }}</p>
           <span class="info-value">{{ weatherData.wind.speed }} m/s</span>
         </div>
         <div class="info-item">
           <ion-icon name="speedometer-outline" class="info-icon"></ion-icon>
-          <p class="info-label">Presión</p>
+          <p class="info-label">{{ texts.pressure }}</p>
           <span class="info-value">{{ weatherData.main.pressure }} hPa</span>
         </div>
       </div>
     </div>
 
-    <button class="five-day-forecast-btn" (click)="goToForecast()">Pronóstico 5 Días</button>
+    <button class="five-day-forecast-btn" (click)="goToForecast()">{{ texts.fiveDayForecast }}</button>
   </div>
 </div>

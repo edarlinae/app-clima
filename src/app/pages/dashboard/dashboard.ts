@@ -35,6 +35,7 @@ export class Dashboard implements OnInit, OnDestroy {
   private readonly RECENT_CITIES_KEY = 'weatherApp_recentCities';
   currentTheme: string = 'light';
   private themeSubscription!: Subscription;
+  private langSubscription!: Subscription;
   texts: any = {};
 
   constructor(
@@ -45,15 +46,18 @@ export class Dashboard implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.translationService.language$.subscribe(lang => {
+    // Suscripción al tema
+    this.themeSubscription = this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
+    });
+
+    // Suscripción al idioma
+    this.langSubscription = this.translationService.language$.subscribe(lang => {
       this.texts = this.translationService.getTranslations();
+      // Si ya tenemos datos del tiempo, los refrescamos para obtener la descripción en el nuevo idioma
       if (this.weatherData) {
         this.refreshData();
       }
-    });
-
-    this.themeSubscription = this.themeService.currentTheme$.subscribe(theme => {
-      this.currentTheme = theme;
     });
 
     this.loadRecentCitiesFromStorage();
@@ -62,9 +66,8 @@ export class Dashboard implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.themeSubscription) {
-      this.themeSubscription.unsubscribe();
-    }
+    if (this.themeSubscription) this.themeSubscription.unsubscribe();
+    if (this.langSubscription) this.langSubscription.unsubscribe();
   }
 
   onSearch(): void {
@@ -81,7 +84,8 @@ export class Dashboard implements OnInit, OnDestroy {
         next: (geoData) => {
           if (geoData && geoData.length > 0) {
             const city = geoData[0];
-            const translatedName = city.local_names?.es || city.name;
+            const lang = this.translationService.getCurrentLang();
+            const translatedName = city.local_names?.[lang] || city.name;
             const recentCity: RecentCity = { name: translatedName, lat: city.lat, lon: city.lon };
             this.fetchWeatherAndForecast(recentCity);
             this.updateRecentCities(recentCity);

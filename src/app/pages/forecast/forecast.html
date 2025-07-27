@@ -1,7 +1,7 @@
 <div class="forecast-container">
   <div class="forecast-card">
     <header class="card-header">
-      <button class="back-button" (click)="goBack()">←</button>
+      <button class="back-button" (click)="goBack()">← {{ texts.back }}</button>
       <div class="header-icons">
         <ion-icon name="refresh-outline" (click)="refreshData()"></ion-icon>
         <div (click)="toggleTheme()">
@@ -11,7 +11,7 @@
       </div>
     </header>
 
-    <h3 class="forecast-location" *ngIf="cityName">{{ cityName }}</h3>
+    <h3 class="forecast-location" *ngIf="cityName">{{ texts.forecastFor }} {{ cityName }}</h3>
 
     <div class="forecast-list">
       <div class="day-group" *ngFor="let dayGroup of groupedForecastData">
