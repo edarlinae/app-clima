@@ -28,8 +28,8 @@
       <button 
         *ngFor="let city of recentCities"
         (click)="loadWeatherData(city)"
-        [class.active]="city === weatherData?.name">
-        {{ city }}
+        [class.active]="city.name === weatherData?.name">
+        {{ city.name }}
       </button>
     </div>
 

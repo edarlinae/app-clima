@@ -16,7 +16,6 @@ interface DailyForecastGroup {
   standalone: true,
   imports: [CommonModule, IonicModule],
   templateUrl: './forecast.html',
-  // CAMBIO: Usamos styleUrls en plural y con corchetes []
   styleUrls: ['./forecast.scss']
 })
 export class Forecast implements OnInit, OnDestroy {
@@ -52,11 +51,25 @@ export class Forecast implements OnInit, OnDestroy {
     }
   }
 
+  // MÉTODO CORREGIDO
   loadForecast(city: string): void {
-    this.weatherService.getForecast(city).subscribe({
-      next: (data) => {
-        this.groupedForecastData = this.groupForecastByDay(data.list);
-      }
+    // 1. Primero obtenemos las coordenadas para la ciudad
+    this.weatherService.getCoordinates(city).subscribe({
+      next: (geoData) => {
+        if (geoData && geoData.length > 0) {
+          const lat = geoData[0].lat;
+          const lon = geoData[0].lon;
+
+          // 2. Con las coordenadas, obtenemos el pronóstico
+          this.weatherService.getForecast(lat, lon).subscribe({
+            next: (data) => {
+              this.groupedForecastData = this.groupForecastByDay(data.list);
+            },
+            error: (err) => console.error('Error al obtener el pronóstico extendido:', err)
+          });
+        }
+      },
+      error: (err) => console.error('Error al obtener las coordenadas:', err)
     });
   }
 
