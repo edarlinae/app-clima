@@ -3,27 +3,20 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100vh; // Asegura que el componente ocupe toda la altura de la pantalla
-  
-  // Aplicamos la imagen de fondo aquí, al contenedor principal
+  height: 100vh;
   background-image: url('/assets/back_login.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.login-container {
-  // Este contenedor ya no necesita centrar, :host lo hace por él
-  padding: 20px;
-}
-
 .login-card {
-  // Aseguramos que la tarjeta tenga su propio fondo blanco (usando la variable global)
-  background-color: var(--card-bg-color);
+  background-color: var(--card-bg-blurry);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px var(--card-shadow);
   padding: 30px 40px;
   width: 100%;
   max-width: 400px;
@@ -36,21 +29,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  color: #888;
+  color: var(--text-color-light);
   font-size: 14px;
 }
 
 .language-selector {
   display: flex;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--input-group-border);
   border-radius: 20px;
   overflow: hidden;
-
+  background-color: var(--input-group-bg);
   span {
     padding: 5px 15px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-
+    color: var(--text-color-primary);
     &.active {
       background-color: #03a9f4;
       color: white;
@@ -67,10 +60,10 @@
     font-size: 24px;
     font-weight: 600;
     margin: 0 0 5px 0;
-    color: #333;
+    color: var(--text-color-dark);
   }
   p {
-    color: #777;
+    color: var(--text-color-light);
     font-size: 15px;
     margin-bottom: 30px;
   }
@@ -81,36 +74,33 @@
     margin-bottom: 15px;
     text-align: left;
   }
-
   input {
     width: 100%;
     padding: 15px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--input-group-border);
     border-radius: 12px;
-    background-color: #f9f9f9;
+    background-color: var(--input-group-bg);
     font-size: 16px;
     box-sizing: border-box; 
-
+    color: var(--text-color-primary);
     &::placeholder {
-      color: #aaa;
+      color: var(--text-color-light);
     }
   }
-
   button {
     width: 100%;
     padding: 15px;
     border: none;
     border-radius: 12px;
-    background: linear-gradient(90deg, #03a9f4 0%, #01e6f9 100%);
+    background: linear-gradient(90deg, var(--action-btn-bg-start), var(--action-btn-bg-end));
     color: white;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(3, 169, 244, 0.3);
+      box-shadow: 0 8px 20px var(--action-btn-shadow);
     }
   }
 }

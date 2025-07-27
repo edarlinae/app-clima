@@ -1,6 +1,5 @@
 <div class="login-container">
   <div class="login-card">
-
     <div class="card-header">
       <span>{{ texts.greeting }}</span>
       <div class="language-selector">
@@ -8,13 +7,11 @@
         <span [ngClass]="{'active': activeLang === 'en'}" (click)="setLanguage('en')">EN</span>
       </div>
     </div>
-
     <div class="card-branding">
       <img src="assets/icon_nube.png" alt="Icono de nube">
       <h1>Weather App</h1>
-      <p>{{ texts.subtitle }}</p>
+      <p>{{ texts.tagline }}</p>
     </div>
-
     <form class="login-form">
       <div class="form-group">
         <input type="email" [placeholder]="texts.emailPlaceholder">
@@ -24,6 +21,5 @@
       </div>
       <button type="button" (click)="onLogin()">{{ texts.loginButton }}</button>
     </form>
-
   </div>
 </div>

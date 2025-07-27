@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ThemeService } from '../../services/theme';
 import { Subscription } from 'rxjs';
+import { TranslationService } from '../../services/translation';
 
 interface RecentCity {
   name: string;
@@ -34,14 +35,23 @@ export class Dashboard implements OnInit, OnDestroy {
   private readonly RECENT_CITIES_KEY = 'weatherApp_recentCities';
   currentTheme: string = 'light';
   private themeSubscription!: Subscription;
+  texts: any = {};
 
   constructor(
     private weatherService: WeatherService,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private translationService: TranslationService
   ) {}
 
   ngOnInit(): void {
+    this.translationService.language$.subscribe(lang => {
+      this.texts = this.translationService.getTranslations();
+      if (this.weatherData) {
+        this.refreshData();
+      }
+    });
+
     this.themeSubscription = this.themeService.currentTheme$.subscribe(theme => {
       this.currentTheme = theme;
     });
@@ -66,7 +76,6 @@ export class Dashboard implements OnInit, OnDestroy {
 
   loadWeatherData(cityInfo: string | RecentCity): void {
     this.errorMessage = null;
-
     if (typeof cityInfo === 'string') {
       this.weatherService.getCoordinates(cityInfo).subscribe({
         next: (geoData) => {
@@ -92,13 +101,11 @@ export class Dashboard implements OnInit, OnDestroy {
       next: (weatherData) => {
         this.weatherData = weatherData;
         this.weatherData.name = city.name;
-        
         const iconCode = this.weatherData.weather[0].icon;
         this.currentBackground = this.getBackgroundPath(iconCode);
       },
       error: (err) => this.handleError('No se pudo cargar el tiempo actual.')
     });
-
     this.weatherService.getForecast(city.lat, city.lon).subscribe({
       next: (forecastData) => {
         this.hourlyForecast = forecastData.list.slice(0, 5);
@@ -133,17 +140,13 @@ export class Dashboard implements OnInit, OnDestroy {
   }
 
   getCustomIconPath(iconCode: string): string {
-    const iconMap: { [key: string]: string } = {
-      '01d': 'dclear_sky.png', '01n': 'nclear_sky.png', '02d': 'dfew_clouds.png', '02n': 'nfew_clouds.png', '03d': 'dscattered_clouds_icon.png', '03n': 'dscattered_clouds_icon.png', '04d': 'dbroken_clouds.png', '04n': 'dbroken_clouds.png', '09d': 'drain.png', '09n': 'nrain.png', '10d': 'dshower_rain.png', '10n': 'dshower_rain.png', '11d': 'dthunderstorm.png', '11n': 'dthunderstorm.png', '13d': 'dsnow.png', '13n': 'dsnow.png', '50d': 'dmist.png', '50n': 'dmist.png'
-    };
+    const iconMap: { [key: string]: string } = { '01d': 'dclear_sky.png', '01n': 'nclear_sky.png', '02d': 'dfew_clouds.png', '02n': 'nfew_clouds.png', '03d': 'dscattered_clouds_icon.png', '03n': 'dscattered_clouds_icon.png', '04d': 'dbroken_clouds.png', '04n': 'dbroken_clouds.png', '09d': 'drain.png', '09n': 'nrain.png', '10d': 'dshower_rain.png', '10n': 'dshower_rain.png', '11d': 'dthunderstorm.png', '11n': 'dthunderstorm.png', '13d': 'dsnow.png', '13n': 'dsnow.png', '50d': 'dmist.png', '50n': 'dmist.png' };
     const iconFileName = iconMap[iconCode] || 'dclear_sky.png';
     return `assets/Iconos_clima/${iconFileName}`;
   }
 
   private getBackgroundPath(iconCode: string): string {
-    const backgroundMap: { [key: string]: string } = {
-      '01d': 'clear_sky_day.png', '01n': 'clear_sky_n.png', '02d': 'few_clouds_day.png', '02n': 'few_clouds_n.png', '03d': 'scattered_clouds_day.png', '03n': 'scattered_clouds_n.png', '04d': 'broken_clouds_day.png', '04n': 'broken_clouds_day.png', '09d': 'shower_rain_day.png', '09n': 'shower_rain_day.png', '10d': 'rain_day.png', '10n': 'rain_day.png', '11d': 'thunderstorm_day.png', '11n': 'thunderstorm_day.png', '13d': 'snow_day.png', '13n': 'snow_n.png', '50d': 'mist_day.png', '50n': 'mist_day.png'
-    };
+    const backgroundMap: { [key: string]: string } = { '01d': 'clear_sky_day.png', '01n': 'clear_sky_n.png', '02d': 'few_clouds_day.png', '02n': 'few_clouds_n.png', '03d': 'scattered_clouds_day.png', '03n': 'scattered_clouds_n.png', '04d': 'broken_clouds_day.png', '04n': 'broken_clouds_day.png', '09d': 'shower_rain_day.png', '09n': 'shower_rain_day.png', '10d': 'rain_day.png', '10n': 'rain_day.png', '11d': 'thunderstorm_day.png', '11n': 'thunderstorm_day.png', '13d': 'snow_day.png', '13n': 'snow_n.png', '50d': 'mist_day.png', '50n': 'mist_day.png' };
     const backgroundFile = backgroundMap[iconCode] || 'clear_sky_day.jpg';
     return `url(assets/backgrounds/${backgroundFile})`;
   }
