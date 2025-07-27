@@ -1,6 +1,5 @@
 /* Estilos Globales y Variables de Color */
 :root {
-  /* Modo Claro (por defecto) */
   --body-bg-gradient-start: #e0f2f7;
   --body-bg-gradient-end: #bbdefb;
   --text-color-primary: #333;
@@ -23,7 +22,6 @@
 }
 
 body.dark-mode {
-  /* Modo Oscuro */
   --body-bg-gradient-start: #2c3e50;
   --body-bg-gradient-end: #1a2b3c;
   --text-color-primary: #e0e0e0;
@@ -41,23 +39,17 @@ body.dark-mode {
   --main-weather-text-color: var(--text-color-primary);
 }
 
-/* Estilos base para el body */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   transition: background 0.3s ease;
   background: linear-gradient(135deg, var(--body-bg-gradient-start), var(--body-bg-gradient-end));
-  
-  /* El body se encarga de centrar */
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Alinear arriba es mejor para páginas largas */
+  align-items: flex-start;
   min-height: 100vh;
-  padding: 20px 0;
-  box-sizing: border-box;
 }
 
-/* El app-root solo debe ocupar el ancho completo */
 app-root {
   width: 100%;
 }

@@ -1,12 +1,14 @@
 :host {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   width: 100%;
-  
-  // Estilos para el fondo dinámico que aplicamos con @HostBinding
+  min-height: 100vh;
+  padding: 20px 0;
+  box-sizing: border-box;
   background-size: cover;
   background-position: center;
-  transition: background-image 0.5s ease-in-out; // Transición suave
+  transition: background-image 0.5s ease-in-out;
 }
 
 // Tarjeta principal que simula un móvil
@@ -257,7 +259,7 @@
   font-size: 1.1em;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
+  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
   transition: all 0.3s ease;
 
   &:hover {
