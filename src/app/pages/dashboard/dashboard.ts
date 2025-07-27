@@ -71,10 +71,11 @@ export class Dashboard implements OnInit, OnDestroy {
         this.currentBackground = this.getBackgroundPath(iconCode);
       },
       error: (err) => {
+        console.error('Error al obtener los datos del tiempo:', err);
         this.errorMessage = `No se encontró la ciudad "${city}". Por favor, intenta de nuevo.`;
-        this.weatherData = null;
-        this.hourlyForecast = [];
-        this.currentBackground = '';
+        // CAMBIO: Ya no borramos los datos anteriores
+        // this.weatherData = null; 
+        // this.hourlyForecast = [];
       }
     });
   }
@@ -116,9 +117,8 @@ export class Dashboard implements OnInit, OnDestroy {
   }
 
   private getBackgroundPath(iconCode: string): string {
-    // CORRECCIÓN: Nombres de archivo ajustados para coincidir con tu carpeta de assets
     const backgroundMap: { [key: string]: string } = {
-      '01d': 'clear_sky_day.png', // Corregido de .jpg a .png
+      '01d': 'clear_sky_day.png',
       '01n': 'clear_sky_n.png',
       '02d': 'few_clouds_day.png',
       '02n': 'few_clouds_n.png',
