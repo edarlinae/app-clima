@@ -1,5 +1,6 @@
 /* Estilos Globales y Variables de Color */
 :root {
+  /* Modo Claro (por defecto) */
   --body-bg-gradient-start: #e0f2f7;
   --body-bg-gradient-end: #bbdefb;
   --text-color-primary: #333;
@@ -9,19 +10,31 @@
   --card-shadow: rgba(0, 0, 0, 0.1);
   --header-icon-color: #64b5f6;
   --header-icon-hover-color: #2196f3;
-  --hourly-card-bg: #f0f7fb;
-  --hourly-card-shadow: rgba(0, 0, 0, 0.08);
-  --hourly-temp-color: #2196f3;
+  --input-group-bg: #f5f5f5;
+  --input-group-border: #e0e0e0;
+  --recent-city-button-bg: #e3f2fd;
+  --recent-city-button-border: #bbdefb;
+  --recent-city-button-text: #2196f3;
   --main-weather-gradient-start: #81d4fa;
   --main-weather-gradient-end: #03a9f4;
   --main-weather-text-color: white;
+  --hourly-card-bg: #f0f7fb;
+  --hourly-card-shadow: rgba(0, 0, 0, 0.08);
+  --hourly-temp-color: #2196f3;
+  --additional-info-bg: #f8f8f8;
+  --additional-info-shadow: rgba(0, 0, 0, 0.05);
   --scrollbar-track-color: #f0f7fb;
   --scrollbar-thumb-color: #bbdefb;
   --scrollbar-thumb-border-color: #f0f7fb;
   --scrollbar-thumb-hover-color: #90caf9;
+  --error-bg: #ffebee;
+  --error-text: #c62828;
+  --error-border: #ef9a9a;
+  --card-bg-blurry: rgba(255, 255, 255, 0.85);
 }
 
 body.dark-mode {
+  /* Modo Oscuro */
   --body-bg-gradient-start: #2c3e50;
   --body-bg-gradient-end: #1a2b3c;
   --text-color-primary: #e0e0e0;
@@ -31,14 +44,30 @@ body.dark-mode {
   --card-shadow: rgba(0, 0, 0, 0.3);
   --header-icon-color: #90caf9;
   --header-icon-hover-color: #64b5f6;
-  --hourly-card-bg: #3d5a73;
-  --hourly-card-shadow: rgba(0, 0, 0, 0.2);
-  --hourly-temp-color: #90caf9;
+  --input-group-bg: #3d5a73;
+  --input-group-border: #4a6c84;
+  --recent-city-button-bg: #4a6c84;
+  --recent-city-button-border: #6fa0bc;
+  --recent-city-button-text: #e0f2f7;
   --main-weather-gradient-start: #3d5a73;
   --main-weather-gradient-end: #4a6c84;
   --main-weather-text-color: var(--text-color-primary);
+  --hourly-card-bg: #3d5a73;
+  --hourly-card-shadow: rgba(0, 0, 0, 0.2);
+  --hourly-temp-color: #90caf9;
+  --additional-info-bg: #3d5a73;
+  --additional-info-shadow: rgba(0, 0, 0, 0.2);
+  --scrollbar-track-color: #3d5a73;
+  --scrollbar-thumb-color: #6fa0bc;
+  --scrollbar-thumb-border-color: #3d5a73;
+  --scrollbar-thumb-hover-color: #90caf9;
+  --error-bg: #4e3436;
+  --error-text: #ff8a80;
+  --error-border: #c62828;
+  --card-bg-blurry: rgba(47, 79, 108, 0.85);
 }
 
+/* Estilos base para el body */
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -48,6 +77,8 @@ body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
+  padding: 30px 15px;
+  box-sizing: border-box;
 }
 
 app-root {

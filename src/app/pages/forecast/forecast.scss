@@ -1,22 +1,21 @@
 :host {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   width: 100%;
-  
-  // --- ESTILOS AÑADIDOS PARA EL FONDO FIJO ---
-  min-height: 100vh; // Asegura que cubra toda la altura
+  min-height: 100vh;
+  padding: 30px 15px;
+  box-sizing: border-box;
   background-image: url('/assets/back_login.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; // Fija la imagen para que no se mueva con el scroll
+  background-attachment: fixed;
 }
 
 .forecast-card {
-  // Le añadimos un fondo semitransparente para que sea legible sobre la imagen
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: var(--card-bg-blurry);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 30px;
   padding: 20px;
   width: 100%;
@@ -116,6 +115,7 @@
     gap: 2px;
     font-size: 0.75em;
     font-weight: 500;
+    color: var(--text-color-primary);
 }
 
 .hourly-icon {

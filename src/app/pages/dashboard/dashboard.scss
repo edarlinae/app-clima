@@ -4,18 +4,17 @@
   align-items: flex-start;
   width: 100%;
   min-height: 100vh;
-  padding: 20px 0;
+  padding: 30px 15px;
   box-sizing: border-box;
   background-size: cover;
   background-position: center;
   transition: background-image 0.5s ease-in-out;
 }
 
-// Tarjeta principal que simula un móvil
 .weather-card {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: var(--card-bg-color);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 30px;
   padding: 25px;
   width: 100%;
@@ -28,7 +27,6 @@
   transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
-// Cabecera
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -38,81 +36,53 @@
     font-size: 22px;
     font-weight: 600;
     color: var(--text-color-dark);
-    transition: color 0.3s;
   }
 }
 
-.back-button {
+.back-button, .card-header .header-icons ion-icon {
   font-size: 24px;
   color: var(--header-icon-color);
   cursor: pointer;
   transition: color 0.3s;
-
-  &:hover {
-    color: var(--header-icon-hover-color);
-  }
+  &:hover { color: var(--header-icon-hover-color); }
 }
 
 .card-header .header-icons {
   display: flex;
   align-items: center;
   gap: 15px;
-  
-  ion-icon {
-    font-size: 24px;
-    color: var(--header-icon-color);
-    cursor: pointer;
-    transition: color 0.3s;
+}
 
-    &:hover {
-      color: var(--header-icon-hover-color);
-    }
+.search-bar input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--input-group-border);
+  border-radius: 25px;
+  font-size: 16px;
+  background-color: var(--input-group-bg);
+  color: var(--text-color-primary);
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+
+.recent-searches button {
+  background: var(--recent-city-button-bg);
+  border: 1px solid var(--recent-city-button-border);
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--recent-city-button-text);
+  transition: all 0.3s ease;
+  &.active, &:hover {
+    background: #42a5f5;
+    color: white;
+    border-color: #42a5f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(66, 165, 245, 0.4);
   }
 }
 
-// Barra de búsqueda
-.search-bar {
-  position: relative;
-  input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 25px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-  }
-}
-
-// Búsquedas recientes
-.recent-searches {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  
-  button {
-    background: #e3f2fd;
-    border: 1px solid #bbdefb;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #0d47a1;
-    transition: all 0.3s ease;
-
-    &.active,
-    &:hover {
-      background: #42a5f5;
-      color: white;
-      border-color: #42a5f5;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(66, 165, 245, 0.4);
-    }
-  }
-}
-
-// Tarjeta del tiempo actual
 .main-weather {
   background: linear-gradient(135deg, var(--main-weather-gradient-start), var(--main-weather-gradient-end));
   color: var(--main-weather-text-color);
@@ -120,37 +90,16 @@
   padding: 20px;
   text-align: center;
   transition: background 0.3s, color 0.3s;
-
-  h3 {
-    margin: 0 0 10px 0;
-    font-size: 24px;
-    font-weight: 500;
-  }
+  h3 { margin: 0 0 10px 0; font-size: 24px; font-weight: 500; }
   .temperature {
-    font-size: 72px;
-    font-weight: 700;
-    line-height: 1;
-    span {
-      font-size: 40px;
-      vertical-align: top;
-    }
+    font-size: 72px; font-weight: 700; line-height: 1;
+    span { font-size: 40px; vertical-align: top; }
   }
-  img {
-    width: 100px;
-    margin: 10px 0;
-  }
-  .weather-description {
-    margin: 0 0 5px 0;
-    font-size: 18px;
-  }
-  .feels-like {
-    margin: 0;
-    font-size: 14px;
-    opacity: 0.8;
-  }
+  img { width: 100px; margin: 10px 0; }
+  .weather-description { margin: 0 0 5px 0; font-size: 18px; }
+  .feels-like { margin: 0; font-size: 14px; opacity: 0.8; }
 }
 
-// Título de sección común
 .section-title {
   font-size: 1.2em;
   font-weight: 600;
@@ -162,26 +111,18 @@
   box-sizing: border-box;
 }
 
-// Pronóstico por horas
+.hourly-forecast-container, .additional-info {
+  // Estilos compartidos si los hubiera
+}
+
 .hourly-forecast-container {
   display: flex;
   overflow-x: auto;
   gap: 15px;
   padding: 10px 5px;
-
-  &::-webkit-scrollbar {
-    height: 8px;
-    background-color: var(--scrollbar-track-color);
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb-color);
-    border-radius: 10px;
-    border: 2px solid var(--scrollbar-thumb-border-color);
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrollbar-thumb-hover-color);
-  }
+  &::-webkit-scrollbar { height: 8px; background-color: var(--scrollbar-track-color); border-radius: 10px; }
+  &::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb-color); border-radius: 10px; border: 2px solid var(--scrollbar-thumb-border-color); }
+  &::-webkit-scrollbar-thumb:hover { background-color: var(--scrollbar-thumb-hover-color); }
 }
 
 .hourly-card {
@@ -199,27 +140,20 @@
   font-weight: 500;
 }
 
-.hourly-icon {
+.hourly-icon, .info-icon {
   width: 45px;
   height: 45px;
 }
+.info-icon { font-size: 30px; color: var(--header-icon-color); }
+.hourly-temp { font-size: 1.1em; font-weight: 600; color: var(--hourly-temp-color); }
 
-.hourly-temp {
-  font-size: 1.1em;
-  font-weight: 600;
-  color: var(--hourly-temp-color);
-}
-
-// Información Adicional
-.additional-info {
-  .info-grid {
-    display: flex;
-    justify-content: space-around;
-    background: #f8f8f8;
-    border-radius: 20px;
-    padding: 20px 10px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
+.additional-info .info-grid {
+  display: flex;
+  justify-content: space-around;
+  background: var(--additional-info-bg);
+  border-radius: 20px;
+  padding: 20px 10px;
+  box-shadow: inset 0 2px 8px var(--additional-info-shadow);
 }
 
 .info-item {
@@ -230,14 +164,9 @@
   flex: 1;
 }
 
-.info-icon {
-  font-size: 30px;
-  color: var(--header-icon-color);
-}
-
 .info-label {
   font-size: 0.85em;
-  color: #666;
+  color: var(--text-color-light);
   text-align: center;
 }
 
@@ -248,7 +177,6 @@
   text-align: center;
 }
 
-// Botón final
 .five-day-forecast-btn {
   width: 100%;
   padding: 15px;
@@ -261,7 +189,6 @@
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
   transition: all 0.3s ease;
-
   &:hover {
     background: linear-gradient(45deg, #2196f3, #1976d2);
     box-shadow: 0 10px 25px rgba(33, 150, 243, 0.4);
@@ -269,11 +196,10 @@
   }
 }
 
-// Mensaje de error
 .error-message {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 1px solid #ef9a9a;
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  border: 1px solid var(--error-border);
   border-radius: 10px;
   padding: 10px 15px;
   text-align: center;
