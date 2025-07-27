@@ -2,9 +2,15 @@
   <div class="login-card">
     <div class="card-header">
       <span>{{ texts.greeting }}</span>
-      <div class="language-selector">
-        <span [ngClass]="{'active': activeLang === 'es'}" (click)="setLanguage('es')">ES</span>
-        <span [ngClass]="{'active': activeLang === 'en'}" (click)="setLanguage('en')">EN</span>
+      <div class="header-controls">
+        <div class="language-selector">
+          <span [ngClass]="{'active': activeLang === 'es'}" (click)="setLanguage('es')">ES</span>
+          <span [ngClass]="{'active': activeLang === 'en'}" (click)="setLanguage('en')">EN</span>
+        </div>
+        <div class="theme-toggle" (click)="toggleTheme()">
+          <ion-icon *ngIf="currentTheme === 'light'" name="moon-outline"></ion-icon>
+          <ion-icon *ngIf="currentTheme === 'dark'" name="sunny-outline"></ion-icon>
+        </div>
       </div>
     </div>
     <div class="card-branding">
