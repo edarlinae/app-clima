@@ -4,6 +4,7 @@
   --body-bg-gradient-start: #e0f2f7;
   --body-bg-gradient-end: #bbdefb;
   --text-color-primary: #333;
+  --text-color-secondary: #555;
   --text-color-dark: #2c3e50;
   --text-color-light: #666;
   --card-bg-color: #ffffff;
@@ -31,6 +32,9 @@
   --error-text: #c62828;
   --error-border: #ef9a9a;
   --card-bg-blurry: rgba(255, 255, 255, 0.85);
+  --action-btn-bg-start: #64b5f6;
+  --action-btn-bg-end: #2196f3;
+  --action-btn-shadow: rgba(33, 150, 243, 0.3);
 }
 
 body.dark-mode {
@@ -38,13 +42,14 @@ body.dark-mode {
   --body-bg-gradient-start: #2c3e50;
   --body-bg-gradient-end: #1a2b3c;
   --text-color-primary: #e0e0e0;
+  --text-color-secondary: #bbbbbb;
   --text-color-dark: #f0f0f0;
   --text-color-light: #aaaaaa;
   --card-bg-color: #2f4f6c;
   --card-shadow: rgba(0, 0, 0, 0.3);
   --header-icon-color: #90caf9;
   --header-icon-hover-color: #64b5f6;
-  --input-group-bg: #3d5a73;
+  --input-group-bg: #4a6c84;
   --input-group-border: #4a6c84;
   --recent-city-button-bg: #4a6c84;
   --recent-city-button-border: #6fa0bc;
@@ -65,6 +70,9 @@ body.dark-mode {
   --error-text: #ff8a80;
   --error-border: #c62828;
   --card-bg-blurry: rgba(47, 79, 108, 0.85);
+  --action-btn-bg-start: #4a6c84;
+  --action-btn-bg-end: #3d5a73;
+  --action-btn-shadow: rgba(0, 0, 0, 0.3);
 }
 
 /* Estilos base para el body */
