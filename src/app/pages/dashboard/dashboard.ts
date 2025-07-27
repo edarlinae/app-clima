@@ -46,18 +46,15 @@ export class Dashboard implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Suscripción al tema
-    this.themeSubscription = this.themeService.currentTheme$.subscribe(theme => {
-      this.currentTheme = theme;
-    });
-
-    // Suscripción al idioma
     this.langSubscription = this.translationService.language$.subscribe(lang => {
       this.texts = this.translationService.getTranslations();
-      // Si ya tenemos datos del tiempo, los refrescamos para obtener la descripción en el nuevo idioma
       if (this.weatherData) {
         this.refreshData();
       }
+    });
+
+    this.themeSubscription = this.themeService.currentTheme$.subscribe(theme => {
+      this.currentTheme = theme;
     });
 
     this.loadRecentCitiesFromStorage();
@@ -84,8 +81,14 @@ export class Dashboard implements OnInit, OnDestroy {
         next: (geoData) => {
           if (geoData && geoData.length > 0) {
             const city = geoData[0];
+            
+            // --- INICIO DE LA CORRECCIÓN ---
+            // 1. Obtenemos el idioma actual del servicio de traducción ('es' o 'en')
             const lang = this.translationService.getCurrentLang();
+            // 2. Usamos el idioma para buscar la traducción. Si no existe, usamos el nombre por defecto.
             const translatedName = city.local_names?.[lang] || city.name;
+            // --- FIN DE LA CORRECCIÓN ---
+
             const recentCity: RecentCity = { name: translatedName, lat: city.lat, lon: city.lon };
             this.fetchWeatherAndForecast(recentCity);
             this.updateRecentCities(recentCity);
